@@ -1,25 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import { useState, useEffect } from "react";
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [response, setResponse] = useState({});
+  const callApi = async () => {
+    const resp = await fetch("https://testbackend-j2yc.onrender.com/");
+    const data = await resp.json();
+    console.log(data);
+    setResponse(data);
+  };
+  useEffect(() => {
+    callApi();
+  }, []);
+  return <h1>This is data from backend {response.message}</h1>;
 }
 
 export default App;
